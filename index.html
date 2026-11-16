@@ -210,9 +210,16 @@
       </div>
       <div class="card">
         <p>Deixe o seu e-mail para receber o guia e o aviso de abertura do Kit. Você pode sair da lista quando quiser.</p>
-        <!-- TODO: trocar pela URL real do formulario (Brevo, MailerLite, Google Forms, etc.). Nao ha backend neste site. -->
-        <p style="margin-bottom:0"><a class="btn" id="form-guia" href="https://example.com/TODO-url-do-formulario-do-guia" rel="noopener">Receber o guia grátis</a></p>
-        <p class="mut" style="font-size:13px;margin:12px 0 0">O formulário fica em um serviço externo. Veja a <a href="privacidade.html">política de privacidade</a>.</p>
+        <form id="form-guia" method="post" action="https://lista.tudoemquadradinhos.com.br/inscrever" style="margin:0">
+          <label for="email-guia" class="mut" style="font-size:14px">Seu e-mail</label>
+          <input id="email-guia" name="email" type="email" required autocomplete="email" inputmode="email" placeholder="voce@exemplo.com" style="display:block;width:100%;padding:12px;margin:6px 0 10px;font-size:16px;border-radius:8px;border:1px solid #3a4560;background:#0b1020;color:#f4ecdc">
+          <input type="text" name="site" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+          <input type="hidden" name="origem" value="site">
+          <label style="display:flex;gap:8px;align-items:flex-start;font-size:14px;margin-bottom:12px"><input type="checkbox" name="consentimento" value="sim" required style="margin-top:3px"> Quero receber o guia e avisos sobre o Kit. Posso sair da lista quando quiser.</label>
+          <button class="btn" type="submit">Receber o guia grátis</button>
+          <p id="guia-erro" class="mut" style="font-size:13px;margin:10px 0 0;display:none;color:#ff8a6a">Confira o e-mail e marque a caixa de consentimento.</p>
+        </form>
+        <p class="mut" style="font-size:13px;margin:12px 0 0">Seu e-mail fica guardado só por nós. Veja a <a href="privacidade.html">política de privacidade</a>.</p>
       </div>
     </div>
   </div>
@@ -268,5 +275,6 @@
 </footer>
 
 <script src="site.js"></script>
+<script>if(location.hash==="#guia-erro"){var e=document.getElementById("guia-erro");if(e)e.style.display="block";location.hash="#guia";}</script>
 </body>
 </html>
