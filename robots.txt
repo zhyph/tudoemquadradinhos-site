@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://tudoemquadradinhos.com.br/sitemap.xml
