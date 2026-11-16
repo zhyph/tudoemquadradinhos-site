@@ -11,7 +11,6 @@ Site estático (HTML + CSS + 1 arquivo JS pequeno). Sem build, sem framework, se
 | `site.js` | **chave Em breve / à venda** (primeira linha de código) |
 | `style.css`, `fonts/`, `assets/` | visual, fonte Silkscreen (OFL), imagens e preview em vídeo |
 | `robots.txt`, `sitemap.xml` | já apontam para o domínio |
-| `_headers` | cabeçalhos de segurança e cache (só Cloudflare Pages) |
 | `404.html` | página de erro |
 
 ## Antes de publicar (pendências marcadas como TODO)
@@ -49,7 +48,6 @@ Alternativa sem trocar os servidores DNS: manter o DNS no Registro.br e usar ape
 
 ## Publicar no GitHub Pages (alternativa)
 
-O GitHub Pages só serve a raiz do repositório ou a pasta `/docs`, não `/site`. Use um repositório só com o conteúdo desta pasta, ou publique `site/` por GitHub Actions. Em Settings > Pages informe o domínio personalizado e siga o passo a passo de DNS da documentação do GitHub (registros do apex e CNAME de `www`). O arquivo `_headers` é ignorado lá (sem prejuízo).
 
 ## Trocar "Em breve" por "à venda"
 
