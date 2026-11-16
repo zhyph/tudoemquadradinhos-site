@@ -48,6 +48,7 @@ Alternativa sem trocar os servidores DNS: manter o DNS no Registro.br e usar ape
 
 ## Publicar no GitHub Pages (alternativa)
 
+O GitHub Pages só serve a raiz do repositório ou a pasta `/docs`, não `/site`. Use um repositório só com o conteúdo desta pasta, ou publique `site/` por GitHub Actions. Em Settings > Pages informe o domínio personalizado e siga o passo a passo de DNS da documentação do GitHub (registros do apex e CNAME de `www`).
 
 ## Trocar "Em breve" por "à venda"
 
