@@ -20,35 +20,22 @@ Procure por `TODO` nos arquivos (`grep -rn TODO site/`):
 1. `index.html`: URL do formulário do guia grátis (`id="form-guia"`), razão social, CNPJ, endereço e e-mail de suporte no rodapé e na seção de garantia.
 2. `privacidade.html` e `termos.html`: mesmos dados, serviço do formulário, datas, foro. São rascunhos: revisar com um profissional.
 3. Dados da empresa não estavam em `pixel/brand/PERFIL.md`; nada foi inventado.
-4. Os links de Instagram, TikTok e YouTube seguem o padrão `@tudoemquadradinhos`; confira que abrem. O Kwai não tem link (apenas texto).
+4. Os links de Instagram e YouTube seguem o padrão `@tudoemquadradinhos`; confira que abrem.  TikTok foi banido e o app apagado: remover do site qualquer link de TikTok e Kwai (`grep -n -i 'tiktok\|kwai' site/*.html`).
 
-## Publicar no Cloudflare Pages (grátis)
+## Publicar (GitHub Pages, NAO Cloudflare Pages)
 
-Opção A, upload direto (mais simples, sem Git):
+O site vivo e o repositório `zhyph/tudoemquadradinhos-site` (branch `main`, GitHub Pages, domínio em `CNAME`). Não está no Cloudflare Pages. O Cloudflare só guarda o DNS do domínio e o Worker da lista (`worker/`).
 
 ```sh
-npx wrangler pages deploy site --project-name=kit-quadradinhos
+site/deploy.sh             # clona o repo vivo, rsync de site/, mostra o diff; não publica
+site/deploy.sh --publicar  # commit, push e espera a página viva refletir a mudança
 ```
 
-(É preciso `npx wrangler login` antes. Um projeto criado por upload direto não vira projeto Git depois.)
+O deploy copia `site/` menos `worker/`, `AUDITORIA-CONVERSAO.md`, `deploy.sh` e `.git`, e mantém o `CNAME` do repo vivo. Nunca apague o `CNAME` nem o registro TXT de verificação do Google Search Console no DNS do Cloudflare (a propriedade `sc-domain` depende dele).
 
-Opção B, ligado ao repositório: Workers & Pages > Create > Pages > Connect to Git. Deixe o comando de build vazio e use `site` como diretório de saída.
+### Domínio tudoemquadradinhos.com.br
 
-### Domínio tudoemquadradinhos.com.br (registrado no Registro.br)
-
-O domínio raiz (apex) no Cloudflare Pages exige que o DNS do domínio esteja no Cloudflare (conforme a documentação do Cloudflare). O Registro.br não permite CNAME na raiz, então o caminho recomendado é:
-
-1. No Cloudflare: Add a site > `tudoemquadradinhos.com.br` (plano Free). Ele mostra dois servidores de nome (nameservers).
-2. No Registro.br (painel do domínio): Alterar servidores DNS, e informe os dois do Cloudflare. Se o DNSSEC estiver ativo no Registro.br, desative-o antes de trocar os servidores (e reative depois com o DS que o Cloudflare fornecer). A propagação pode levar de minutos a horas.
-3. Workers & Pages > seu projeto > Custom domains > Set up a domain > `tudoemquadradinhos.com.br`. Repita para `www.tudoemquadradinhos.com.br` e crie, no Cloudflare, uma regra de redirecionamento de `www` para a raiz (ou o contrário). O Cloudflare cria os registros DNS sozinho quando o domínio já está nele.
-4. Adicione o domínio no painel do Pages **antes** de criar qualquer CNAME manual, senão dá erro 522.
-5. Confira: `https://tudoemquadradinhos.com.br/` abre, o certificado HTTPS é emitido sozinho.
-
-Alternativa sem trocar os servidores DNS: manter o DNS no Registro.br e usar apenas um subdomínio, por exemplo `kit.tudoemquadradinhos.com.br`, com um registro CNAME apontando para `<seu-projeto>.pages.dev`. Nesse caso troque os endereços `https://tudoemquadradinhos.com.br/` por `https://kit.tudoemquadradinhos.com.br/` em `index.html`, `privacidade.html`, `termos.html`, `404.html`, `robots.txt` e `sitemap.xml`.
-
-## Publicar no GitHub Pages (alternativa)
-
-O GitHub Pages só serve a raiz do repositório ou a pasta `/docs`, não `/site`. Use um repositório só com o conteúdo desta pasta, ou publique `site/` por GitHub Actions. Em Settings > Pages informe o domínio personalizado e siga o passo a passo de DNS da documentação do GitHub (registros do apex e CNAME de `www`).
+Registrado no Registro.br, com DNS no Cloudflare. Conferido em 2026-11-16: o apex tem os 4 registros A do GitHub Pages (185.199.108-111.153) e `www` é CNAME para `zhyph.github.io`. O domínio personalizado e o HTTPS ficam em Settings > Pages do repo vivo.
 
 ## Trocar "Em breve" por "à venda"
 
